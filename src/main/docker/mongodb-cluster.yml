@@ -1,0 +1,16 @@
+version: '2'
+services:
+  consentapp-mongodb:
+    image: mongo:4.2.6
+    ports:
+      - '27017:27017'
+    command: mongos --configdb csvr/consentapp-mongodb-config --bind_ip 0.0.0.0
+  consentapp-mongodb-node:
+    build:
+      context: .
+      dockerfile: mongodb/MongoDB.Dockerfile
+    command: mongod --shardsvr --replSet rs1
+  consentapp-mongodb-config:
+    image: mongo:4.2.6
+    container_name: consentapp-mongodb-config
+    command: mongod --configsvr --dbpath /data/db --replSet csvr
