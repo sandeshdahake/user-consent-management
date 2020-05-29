@@ -1,0 +1,69 @@
+<div>
+    <h2 id="page-heading">
+        <span>Purposes</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-purpose" [routerLink]="['/purpose/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Purpose
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="purposes?.length === 0">
+        <span>No purposes found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="purposes && purposes.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>ID</span></th>
+                    <th scope="col" ><span>Purpose Id</span></th>
+                    <th scope="col" ><span>Enabled</span></th>
+                    <th scope="col" ><span>Consent</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let purpose of purposes ;trackBy: trackId">
+                    <td><a [routerLink]="['/purpose', purpose.id, 'view']">{{ purpose.id }}</a></td>
+                    <td>{{ purpose.purposeId }}</td>
+                    <td>{{ purpose.enabled }}</td>
+                    <td>
+                        <div *ngIf="purpose.consent">
+                            <a [routerLink]="['/consent', purpose.consent?.id, 'view']" >{{ purpose.consent?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/purpose', purpose.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/purpose', purpose.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(purpose)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

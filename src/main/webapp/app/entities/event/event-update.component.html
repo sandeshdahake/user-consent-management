@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-event-heading">Create or edit a Event</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_organizationId">Organization Id</label>
+                    <input type="text" class="form-control" name="organizationId" id="field_organizationId"
+                           formControlName="organizationId"/>
+                    <div *ngIf="editForm.get('organizationId')!.invalid && (editForm.get('organizationId')!.dirty || editForm.get('organizationId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('organizationId')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdAt">Created At</label>
+                    <div class="d-flex">
+                        <input id="field_createdAt" type="datetime-local" class="form-control" name="createdAt" formControlName="createdAt" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_status">Status</label>
+                    <select class="form-control" name="status" formControlName="status" id="field_status">
+                        <option value="CONFIRMED">CONFIRMED</option>
+                        <option value="PENDING_APPROVAL">PENDING_APPROVAL</option>
+                    </select>
+                    <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('status')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_delegate">Delegate</label>
+                    <select class="form-control" id="field_delegate" name="delegate" formControlName="delegate">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="delegateOption.id === editForm.get('delegate')!.value?.id ? editForm.get('delegate')!.value : delegateOption" *ngFor="let delegateOption of delegates; trackBy: trackById">{{ delegateOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_validation">Validation</label>
+                    <select class="form-control" id="field_validation" name="validation" formControlName="validation">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="validationOption.id === editForm.get('validation')!.value?.id ? editForm.get('validation')!.value : validationOption" *ngFor="let validationOption of validations; trackBy: trackById">{{ validationOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_consents">Consents</label>
+                    <select class="form-control" id="field_consents" name="consents" formControlName="consents">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="consentOption.id === editForm.get('consents')!.value?.id ? editForm.get('consents')!.value : consentOption" *ngFor="let consentOption of consents; trackBy: trackById">{{ consentOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clientOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : clientOption" *ngFor="let clientOption of clients; trackBy: trackById">{{ clientOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

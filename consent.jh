@@ -1,0 +1,62 @@
+entity Client {
+	id UUID required unique,
+	organizationUserId String required,
+    version Integer,
+    createdAt Instant,
+    updatedAt Instant,
+    customerId String required,
+    customerId String required,
+    country String required
+}
+entity Proof {
+	filename String,
+    file Blob maxbytes(10485760)
+}
+enum Status {
+    CONFIRMED, PENDING_APPROVAL
+}
+entity Delegate{
+	delegateId String,
+    name String,
+}
+entity Validation {
+	type String
+}
+
+
+entity Preference{
+	preferenceId  String required ,
+    enabled Boolean required,
+}
+
+entity Purpose {
+	purposeId String required,
+    enabled Boolean required
+
+}
+entity Consent {
+
+}
+
+entity Event{
+	id UUID required unique,
+	organizationId String required,
+    createdAt Instant,
+    status Status required
+}
+
+relationship OneToOne {
+    Event{delegate} to Delegate,
+    Event{validation} to Validation,
+    Event{consents} to Consent,
+    Client{consents} to Consent,
+}
+
+relationship OneToMany {
+	Client{events} to Event{user},
+	Event{proofs} to Proof{event},
+    Purpose{preferences} to Preference{purpose}
+    Consent{purposes} to Purpose{consent}
+}
+service * with serviceImpl
+paginate Client, Event with infinite-scroll
