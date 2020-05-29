@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-preference-heading">Create or edit a Preference</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_preferenceId">Preference Id</label>
+                    <input type="text" class="form-control" name="preferenceId" id="field_preferenceId"
+                           formControlName="preferenceId"/>
+                    <div *ngIf="editForm.get('preferenceId')!.invalid && (editForm.get('preferenceId')!.dirty || editForm.get('preferenceId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('preferenceId')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_enabled">Enabled</label>
+                    <input type="checkbox" class="form-control" name="enabled" id="field_enabled"
+                           formControlName="enabled"/>
+                    <div *ngIf="editForm.get('enabled')!.invalid && (editForm.get('enabled')!.dirty || editForm.get('enabled')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('enabled')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_purpose">Purpose</label>
+                    <select class="form-control" id="field_purpose" name="purpose" formControlName="purpose">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="purposeOption.id === editForm.get('purpose')!.value?.id ? editForm.get('purpose')!.value : purposeOption" *ngFor="let purposeOption of purposes; trackBy: trackById">{{ purposeOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

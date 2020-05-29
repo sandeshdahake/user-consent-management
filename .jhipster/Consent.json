@@ -1,0 +1,23 @@
+{
+  "name": "Consent",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "purpose",
+      "otherEntityRelationshipName": "consent",
+      "relationshipName": "purposes"
+    }
+  ],
+  "changelogDate": "20200529142749",
+  "entityTableName": "consent",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

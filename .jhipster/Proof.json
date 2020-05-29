@@ -1,0 +1,38 @@
+{
+  "name": "Proof",
+  "fields": [
+    {
+      "fieldName": "filename",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "file",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any",
+      "fieldValidateRules": [
+        "maxbytes"
+      ],
+      "fieldValidateRulesMaxbytes": "10485760"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "event",
+      "otherEntityRelationshipName": "proofs",
+      "relationshipName": "event",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200529142249",
+  "entityTableName": "proof",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

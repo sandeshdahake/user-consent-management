@@ -1,0 +1,63 @@
+<div>
+    <h2 id="page-heading">
+        <span>Delegates</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-delegate" [routerLink]="['/delegate/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Delegate
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="delegates?.length === 0">
+        <span>No delegates found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="delegates && delegates.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>ID</span></th>
+                    <th scope="col" ><span>Delegate Id</span></th>
+                    <th scope="col" ><span>Name</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let delegate of delegates ;trackBy: trackId">
+                    <td><a [routerLink]="['/delegate', delegate.id, 'view']">{{ delegate.id }}</a></td>
+                    <td>{{ delegate.delegateId }}</td>
+                    <td>{{ delegate.name }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/delegate', delegate.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/delegate', delegate.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(delegate)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

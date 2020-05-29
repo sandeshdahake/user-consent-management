@@ -1,0 +1,90 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-client-heading">Create or edit a Client</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_organizationUserId">Organization User Id</label>
+                    <input type="text" class="form-control" name="organizationUserId" id="field_organizationUserId"
+                           formControlName="organizationUserId"/>
+                    <div *ngIf="editForm.get('organizationUserId')!.invalid && (editForm.get('organizationUserId')!.dirty || editForm.get('organizationUserId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('organizationUserId')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_version">Version</label>
+                    <input type="number" class="form-control" name="version" id="field_version"
+                           formControlName="version"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdAt">Created At</label>
+                    <div class="d-flex">
+                        <input id="field_createdAt" type="datetime-local" class="form-control" name="createdAt" formControlName="createdAt" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_updatedAt">Updated At</label>
+                    <div class="d-flex">
+                        <input id="field_updatedAt" type="datetime-local" class="form-control" name="updatedAt" formControlName="updatedAt" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_customerId">Customer Id</label>
+                    <input type="text" class="form-control" name="customerId" id="field_customerId"
+                           formControlName="customerId"/>
+                    <div *ngIf="editForm.get('customerId')!.invalid && (editForm.get('customerId')!.dirty || editForm.get('customerId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('customerId')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_country">Country</label>
+                    <input type="text" class="form-control" name="country" id="field_country"
+                           formControlName="country"/>
+                    <div *ngIf="editForm.get('country')!.invalid && (editForm.get('country')!.dirty || editForm.get('country')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('country')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_consents">Consents</label>
+                    <select class="form-control" id="field_consents" name="consents" formControlName="consents">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="consentOption.id === editForm.get('consents')!.value?.id ? editForm.get('consents')!.value : consentOption" *ngFor="let consentOption of consents; trackBy: trackById">{{ consentOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

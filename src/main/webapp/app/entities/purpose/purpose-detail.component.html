@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="purpose">
+            <h2><span>Purpose</span> {{ purpose.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Purpose Id</span></dt>
+                <dd>
+                    <span>{{ purpose.purposeId }}</span>
+                </dd>
+                <dt><span>Enabled</span></dt>
+                <dd>
+                    <span>{{ purpose.enabled }}</span>
+                </dd>
+                <dt><span>Consent</span></dt>
+                <dd>
+                    <div *ngIf="purpose.consent">
+                        <a [routerLink]="['/consent', purpose.consent?.id, 'view']">{{ purpose.consent?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/purpose', purpose.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

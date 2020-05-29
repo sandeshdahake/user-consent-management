@@ -1,0 +1,45 @@
+{
+  "name": "Purpose",
+  "fields": [
+    {
+      "fieldName": "purposeId",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "enabled",
+      "fieldType": "Boolean",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "preference",
+      "otherEntityRelationshipName": "purpose",
+      "relationshipName": "preferences"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "consent",
+      "otherEntityRelationshipName": "purposes",
+      "relationshipName": "consent",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200529142649",
+  "entityTableName": "purpose",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

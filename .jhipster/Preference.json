@@ -1,0 +1,39 @@
+{
+  "name": "Preference",
+  "fields": [
+    {
+      "fieldName": "preferenceId",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "enabled",
+      "fieldType": "Boolean",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "purpose",
+      "otherEntityRelationshipName": "preferences",
+      "relationshipName": "purpose",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200529142549",
+  "entityTableName": "preference",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}
